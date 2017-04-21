@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="dmpi_login_custom" inherit_id="web.login">
+            <xpath expr="//div[@class='form-group field-password']" position="after">
+                <div class="form-group field-login">
+                    <label for="sub_login" class="control-label">Sub Login</label>
+                    <input type="text" name="sub_login" t-att-value="sub_login" id="sub_login" class="form-control" required="required" autofocus="autofocus" autocapitalize="off"/>
+                </div>
+
+
+                <div class="form-group field-ug" t-if="usergroups and len(usergroups) &gt; 1">
+                    <label for="ug" class="control-label">User Groups</label>
+
+                    <select name="ug" id="ug" class="form-control" required="required" t-att-autofocus="'autofocus' if request.ug not in usergroups else None" >
+                        <option></option>
+                        <t t-foreach="usergroups" t-as="ug">
+                            <option t-att-selected="'selected' if ug == request.ug else None">
+                                <t t-esc="ug"/>
+                            </option>
+                        </t>
+                    </select>
+
+
+
+                </div>
+
+
+
+            </xpath>
+
+        </template>
+    </data>
+</odoo>
+
+

@@ -1,0 +1,43 @@
+version: '2'
+services:
+  web:
+    image: toolkt/odoo:10.0
+    depends_on:
+      - db
+    ports:
+      - "1069:8069"
+    volumes:
+      - odoo-web-data:/var/lib/odoo
+      - ./config:/etc/odoo
+      - .././addons:/mnt/extra-addons
+    networks:
+      - backend
+      - frontend    
+  db:
+    image: postgres:9.5
+    environment:
+      - POSTGRES_PASSWORD=odoo
+      - POSTGRES_USER=odoo
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - odoo-db-data:/var/lib/postgresql/data/pgdata
+    ports:
+      - "5432:5432"   
+    networks:
+      - backend
+  pentaho:
+    image: toolkt/pentaho:10.0
+    networks:
+      - backend 
+    #ports:
+    #  - "8080:8080"  
+volumes:
+  odoo-web-data:
+  odoo-db-data:
+
+networks:  
+  frontend:
+    driver: bridge
+      name: dmpi_common_network
+  backend:
+    driver: bridge

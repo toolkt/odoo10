@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+    <menuitem  id="dmpi_menu_partner_config" name="Partner Settings" parent="menu_dmpi_central_main_config" sequence="8" />
+
+
+    <record id="view_partner_ship_info_form" model="ir.ui.view">
+        <field name="name">res.partner.ship_info.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='type']" position="after">
+
+            </xpath>
+            <field name="function" position="replace">
+                <field name='ship_to_code' attrs="{'invisible': [('type', '!=', 'delivery')]}"/>
+                <field name='sold_to_code' attrs="{'invisible': [('type', '=', 'delivery')]}"/>
+            </field>
+            <field name="mobile" position="replace"/>
+            <field name="fax" position="replace"/>
+            <field name="title" position="replace"/>
+
+            <xpath expr="//field[@name='child_ids']/form/sheet/group/group/field[@name='name']" position="after">
+                <field name='ship_to_code'/>
+            </xpath>
+        </field>
+    </record>
+
+
+
+    <record id="view_users_form_inherit" model="ir.ui.view">
+        <field name="name">base.view.users.form.inherit</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+            <xpath expr='//notebook' position="inside">
+
+            </xpath>
+        </field>
+    </record>
+
+
+
+<!-- PARTNER CHANNEL -->
+    <record id="view_partner_channel_tree" model="ir.ui.view">
+        <field name="name">res.partner.channel.tree</field>
+        <field name="model">res.partner.channel</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Partner Channels" editable="bottom">
+                <field name="channel_type"/>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="parent_id"/>
+                <field name="type"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_partner_channel_form" model="ir.actions.act_window">
+        <field name="name">Partner Channels</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.partner.channel</field>
+        <field name="view_type">form</field>
+    </record>
+
+    <menuitem action="action_partner_channel_form" id="menu_partner_channel_form" name="Partner Channels" parent="dmpi_menu_partner_config" sequence="6" />
+
+<!-- PARTNER COVERAGE -->
+    <record id="view_partner_coverage_tree" model="ir.ui.view">
+        <field name="name">res.partner.coverage.tree</field>
+        <field name="model">res.partner.coverage</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Partner Coverage" editable="bottom">
+                <field name="name"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_partner_coverage_form" model="ir.actions.act_window">
+        <field name="name">Partner Coverage</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.partner.coverage</field>
+        <field name="view_type">form</field>
+    </record>
+
+    <menuitem action="action_partner_coverage_form" id="menu_partner_coverage_form" name="Partner Coverage" parent="dmpi_menu_partner_config" sequence="7" />
+
+
+
+
+
+</odoo>

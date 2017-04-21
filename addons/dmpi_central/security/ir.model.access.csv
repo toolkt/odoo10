@@ -1,0 +1,9 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+"access_user_dmpi_plant","user.dmpi.plant","model_dmpi_plant",base.group_user,1,0,0,0
+"access_user_dmpi_dist_po_allocation","user.dmpi.dist.po.allocation","model_dmpi_dist_po_allocation",base.group_user,1,0,0,0
+"access_user_dmpi_dist_po_allocation_line","user.dmpi.dist.po.allocation.line","model_dmpi_dist_po_allocation_line",base.group_user,1,0,0,0
+"access_user_stock_return_reason","user.stock.return.reason","model_stock_return_reason",base.group_user,1,0,0,0
+"access_user_res_distributor","user.res.distributor","model_res_distributor",base.group_user,1,0,0,0
+"access_user_res_distributor_database","user.res.distributor.database","model_res_distributor_database",base.group_user,1,0,0,0
+"access_user_res_partner_channel","user.res.partner.channel","model_res_partner_channel",base.group_user,1,0,0,0
+"access_user_res_partner_coverage","user.res.partner.coverage","model_res_partner_coverage",base.group_user,1,0,0,0

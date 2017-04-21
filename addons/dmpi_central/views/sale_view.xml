@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_sale_order_dmpi_central_inherit" model="ir.ui.view">
+        <field name="name">sale.order.dmpi_central.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//header" position="before">
+              <header>
+
+                <button name="send_dr_conf"  string="Send DR Confirmation" type="object" class="oe_highlight" attrs="{'invisible': [('status','!=','submitted')]}"/>
+                <button name="send_for_delivery_conf"  string="Send DR Confirmation" type="object" class="oe_highlight" attrs="{'invisible': [('status','!=','confirmed_dr')]}"/>
+
+                  <field name="status" widget="statusbar" statusbar_visible="for_dr_conf,confirmed_dr,for_delivery_conf,confirmed_del,enroute,received,done" />
+              </header>
+            </xpath>
+
+            
+            <xpath expr="//field[@name='name']" position="after">
+              <span>/</span><field name="odoo_po_no" readonly="1"/>
+            </xpath>
+
+            <xpath expr="//field[@name='date_order']" position="after">
+              <field name="shipment_dd"/>
+            </xpath>
+
+            <xpath expr="//notebook" position="inside">
+              <page name="drf" string="For Receiving">
+
+                <field name='dist_db' />
+                <field name='dist_po_id' />
+
+                <group>
+                    <group>
+                      <field name='shipment_no' />
+                      <field name='forwarder' />
+                      <field name='received_date' />
+                      <field name='po_approval' />
+                    </group>
+                    <group>
+                      <field name='gi_date' />
+                      <field name='container' />
+                      <field name='plate_no' />
+                      <field name='seal_no' />
+                      <field name='drf_no' />
+                      <field name='invoice_no' />
+                    </group>
+                    <button name="receive_products" string="Receive Products" type="object" class="oe_highlight" attrs="{'invisible':['|','|',('seal_no', '=', False),('drf_no', '=', False),('invoice_no', '=', False)]}"/>
+                </group>
+
+                <field name='drf_line_ids'>
+                  <tree editable='bottom'>
+                    <field name='product_id' />
+                    <field name='deliver_quantity' />
+                    <field name='actual_quantity' />
+                    <field name='po_status' />
+                    <field name='return_reason_id' attrs="{'required':[('po_status', 'in', ['09', '10', '11', '12'])]}"/>
+                    <field name='lot_no' />
+
+
+                    <!-- -->
+                    <field name='variance' />
+                    <field name='sap_so_no' />
+                    <field name='odoo_line_no' />
+                    <field name='so_line_no' />
+                    <field name='dr_no' />
+                    <field name='dr_line_no' />
+                  </tree>
+                </field>
+              </page>
+
+            </xpath>
+        </field>
+    </record>
+
+
+
+    <record id="view_sale_order_dmpi_central_tree_inherit" model="ir.ui.view">
+        <field name="name">sale.order.dmpi_central.tree.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+              <field name="odoo_po_no"/>
+            </xpath>
+            <xpath expr="//field[@name='state']" position="attributes">
+              <attribute name="invisible">1</attribute>
+            </xpath>            
+            <xpath expr="//field[@name='state']" position="after">
+              <field name="status" string="ODOO STATUS"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_sale_order_dmpi_central_quotation_tree_inherit" model="ir.ui.view">
+        <field name="name">sale.order.dmpi_central.quotation.tree.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_quotation_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+              <field name="odoo_po_no"/>
+            </xpath>
+            <xpath expr="//field[@name='state']" position="attributes">
+              <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='state']" position="after">
+              <field name="status" string="ODOO STATUS"/>
+            </xpath>
+        </field>
+    </record>
+
+
+
+</odoo>
