@@ -22,7 +22,7 @@ services:
     ports:
       - "5432:5432"
   pentaho:
-    image: toolkt/pentaho:10.0
+    image: toolkt/pentaho:8.0
     ports:
       - "8080:8080"   
 volumes:
