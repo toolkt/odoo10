@@ -5,14 +5,12 @@ services:
     depends_on:
       - db
     ports:
-      - "1069:8069"
+      - "8069:8069"
     volumes:
       - odoo-web-data:/var/lib/odoo
       - ./config:/etc/odoo
-      - .././addons:/mnt/extra-addons
-    networks:
-      - backend
-      - frontend    
+      - ./addons:/mnt/extra-addons
+    #command: -- -u dmpi_po_central -d 
   db:
     image: postgres:9.5
     environment:
@@ -22,22 +20,11 @@ services:
     volumes:
       - odoo-db-data:/var/lib/postgresql/data/pgdata
     ports:
-      - "5432:5432"   
-    networks:
-      - backend
+      - "5432:5432"
   pentaho:
     image: toolkt/pentaho:10.0
-    networks:
-      - backend 
-    #ports:
-    #  - "8080:8080"  
+    ports:
+      - "8080:8080"   
 volumes:
   odoo-web-data:
   odoo-db-data:
-
-networks:  
-  frontend:
-    driver: bridge
-      name: dmpi_common_network
-  backend:
-    driver: bridge
